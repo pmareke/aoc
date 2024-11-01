@@ -1,4 +1,4 @@
-# Advent of Code 2024 ![status](https://github.com/pmareke/aoc/actions/workflows/app.yml/badge.svg)
+# Advent of Code 2024
 
 ## Requirements
 
