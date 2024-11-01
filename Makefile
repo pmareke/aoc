@@ -12,35 +12,28 @@ local-setup: ## Sets up the local environment (e.g. install git hooks)
 
 .PHONY: install
 install: ## Install the app packages
-	 poetry install
-
-.PHONY: update
-update: ## Updates the app packages
-	 poetry update
-
-.PHONY: add-package
-add-package: ## Installs a new package in the app. ex: make install package=XXX
-	poetry add $(package)
-
-.PHONY: run
-run: ## Runs the app
-	python main.py
+	 rm -rf poetry.lock
+	 poetry install --no-root
 
 .PHONY: check-typing
 check-typing:  ## Run a static analyzer over the code to find issues
-	 poetry run mypy .
+	poetry run mypy .
+
+.PHONY: check-lint
+check-lint: ## Checks the code style
+	poetry run ruff check
+
+.PHONY: lint
+lint: ## Lints the code format
+	poetry run ruff check --fix
 
 .PHONY: check-format
-check-format: ## Checks the code format
-	 poetry run black --check src tests
-
-.PHONY: check-style
-check-style: ## Checks the code style
-	 poetry run ruff check **/*.py
+check-format:  ## Check format python code
+	poetry run ruff format --check
 
 .PHONY: format
 format:  ## Format python code
-	 poetry run black src tests
+	poetry run ruff format
 
 .PHONY: test
 test: ## Run all the tests
@@ -51,10 +44,4 @@ watch: ## Run all the tests in watch mode
 	 PYTHONPATH=. poetry run ptw --runner "pytest -n auto tests -ra"
 
 .PHONY: pre-commit
-pre-commit: check-format check-typing check-style test
-	
-.PHONY: rename-project
-rename-project: ## Rename project make rename name=new-name
-	sed -i 's/python-boilerplate/$(name)/' Makefile
-	sed -i 's/python-boilerplate/$(name)/' .github/workflows/trivy.yml
-	sed -i 's/python-boilerplate/$(name)/' pyproject.toml
+pre-commit: check-format check-typing test
