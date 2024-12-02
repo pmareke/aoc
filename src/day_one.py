@@ -9,27 +9,26 @@ class DayOne:
         left = []
         right = []
         for line in self.input:
-            numbers = line.split("   ")
-            left.append(int(numbers[0]))
-            right.append(int(numbers[1]))
+            _left, _right = list(map(int, line.split("   ")))
+            left.append(_left)
+            right.append(_right)
         return self._total_distance(left, right)
 
     def _total_distance(self, left: list[int], right: list[int]) -> int:
         left = sorted(left)
         right = sorted(right)
-
         result = 0
-        for idx, item in enumerate(left):
-            result += abs(item - right[idx])
+        for _left, _right in zip(left, right):
+            result += abs(_left - _right)
         return result
 
     def part_two(self) -> int:
         left = []
         right: dict[int, int] = defaultdict(int)
         for line in self.input:
-            numbers = line.split("   ")
-            left.append(int(numbers[0]))
-            right[int(numbers[1])] += 1
+            _left, _right = list(map(int, line.split("   ")))
+            left.append(_left)
+            right[_right] += 1
 
         return self._calculate_similarity(left, right)
 
