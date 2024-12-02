@@ -5,20 +5,38 @@ from src.day_one import DayOne
 
 
 class TestDayOne:
-    @pytest.fixture
-    def input(self) -> list[str]:
+    @staticmethod
+    def example() -> list[str]:
+        return open("inputs/01.example").read().strip().split("\n")
+
+    @staticmethod
+    def real_input() -> list[str]:
         return open("inputs/01.in").read().strip().split("\n")
 
-    def test_part_one(self, input: list[str]) -> None:
+    @pytest.mark.parametrize(
+        "input, solution",
+        [
+            (example(), 11),
+            (real_input(), 3574690),
+        ],
+    )
+    def test_part_one(self, input: list[str], solution: int) -> None:
         day_one = DayOne(input)
 
         result = day_one.part_one()
 
-        expect(result).to(equal(3574690))
+        expect(result).to(equal(solution))
 
-    def test_part_two(self, input: list[str]) -> None:
+    @pytest.mark.parametrize(
+        "input, solution",
+        [
+            (example(), 31),
+            (real_input(), 22565391),
+        ],
+    )
+    def test_part_two(self, input: list[str], solution: int) -> None:
         day_one = DayOne(input)
 
         result = day_one.part_two()
 
-        expect(result).to(equal(22565391))
+        expect(result).to(equal(solution))
