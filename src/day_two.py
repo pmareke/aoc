@@ -1,6 +1,3 @@
-import re
-
-
 class DayTwo:
     def __init__(self, input: list[str]) -> None:
         self.input = input
