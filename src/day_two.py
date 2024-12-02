@@ -32,21 +32,10 @@ class DayTwo:
         return False
 
     def _is_safe_v2(self, numbers: list[int]) -> bool:
-        desc = sorted(numbers, reverse=True)
-        if numbers == desc:
-            if self._is_valid(desc):
-                return True
-
-        asc = sorted(numbers)
-        if numbers == asc:
-            if self._is_valid(asc):
-                return True
-
         for i in range(len(numbers)):
             valid_numbers = [*numbers[:i], *numbers[i + 1 :]]
             if self._is_safe(valid_numbers):
                 return True
-
         return False
 
     def _is_valid(self, numbers: list[int]) -> bool:
