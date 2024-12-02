@@ -14,7 +14,7 @@ class DayTwo:
         result = 0
         for line in self.input:
             numbers = list(map(int, line.split()))
-            if self._is_safe_v2(numbers):
+            if self._is_safe_with_one_error(numbers):
                 result += 1
         return result
 
@@ -31,16 +31,16 @@ class DayTwo:
 
         return False
 
-    def _is_safe_v2(self, numbers: list[int]) -> bool:
-        for i in range(len(numbers)):
-            valid_numbers = [*numbers[:i], *numbers[i + 1 :]]
+    def _is_safe_with_one_error(self, numbers: list[int]) -> bool:
+        for idx in range(len(numbers)):
+            valid_numbers = [*numbers[:idx], *numbers[idx + 1 :]]
             if self._is_safe(valid_numbers):
                 return True
         return False
 
     def _is_valid(self, numbers: list[int]) -> bool:
-        for i in range(len(numbers) - 1):
-            diff = abs(numbers[i] - numbers[i + 1])
+        for idx in range(len(numbers) - 1):
+            diff = abs(numbers[idx] - numbers[idx + 1])
             if diff < 1 or diff > 3:
                 return False
         return True
