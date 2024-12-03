@@ -8,31 +8,22 @@ class DayThree:
         self.input = input
 
     def part_one(self) -> int:
+        return self._calculate(self.input)
+
+    def part_two(self) -> int:
         result = 0
-        numbers = re.findall(self.REGEX, self.input)
+        [before_first_dont, *rest] = self.input.split("don't()")
+        result += self._calculate(before_first_dont)
+        for part in rest:
+            do_block_inside_dont = part.split("do()")
+            for item in do_block_inside_dont[1:]:
+                result += self._calculate(item)
+        return result
+
+    def _calculate(self, input: str) -> int:
+        result = 0
+        numbers = re.findall(self.REGEX, input)
         for pair in numbers:
             x, y = list(map(int, pair.split(",")))
             result += x * y
-        return result
-
-    def part_two(self) -> int:
-        first_block = True
-        result = 0
-        parts = self.input.split("don't()")
-        for part in parts:
-            if first_block:
-                numbers = re.findall(self.REGEX, part)
-                for pair in numbers:
-                    x, y = list(map(int, pair.split(",")))
-                    result += x * y
-                first_block = False
-                continue
-
-            do_block_inside_dont = part.split("do()")
-            for item in do_block_inside_dont[1:]:
-                numbers = re.findall(self.REGEX, item)
-                for pair in numbers:
-                    x, y = list(map(int, pair.split(",")))
-                    result += x * y
-
         return result
