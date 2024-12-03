@@ -11,9 +11,8 @@ class DayThree:
         return self._calculate(self.input)
 
     def part_two(self) -> int:
-        result = 0
         [before_first_dont, *rest] = self.input.split("don't()")
-        result += self._calculate(before_first_dont)
+        result = self._calculate(before_first_dont)
         for part in rest:
             [_, *do_block_inside_dont] = part.split("do()")
             for block in do_block_inside_dont:
