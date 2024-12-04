@@ -18,8 +18,8 @@ class DayFour:
             for dX in posX:
                 for dY in posX:
                     if [dx + dX, dy + dY] in M:
-                        if [dx + (dX) * 2, dy + (dY) * 2] in A:
-                            if [dx + (dX) * 3, dy + (dY) * 3] in S:
+                        if [dx + (dX * 2), dy + (dY * 2)] in A:
+                            if [dx + (dX * 3), dy + (dY * 3)] in S:
                                 result += 1
         return result
 
@@ -32,17 +32,17 @@ class DayFour:
 
         for a in A:
             x, y = a
-            dx = x - 1
-            dX = x + 1
-            dy = y - 1
-            dY = y + 1
-            if [dx, dy] in M and [dX, dy] in M and [dx, dY] in S and [dX, dY] in S:
+            up_left = [x - 1, y - 1]
+            down_left = [x + 1, y - 1]
+            up_right = [x - 1, y + 1]
+            down_right = [x + 1, y + 1]
+            if up_left in M and down_left in M and up_right in S and down_right in S:
                 result += 1
-            if [dx, dy] in S and [dX, dy] in S and [dx, dY] in M and [dX, dY] in M:
+            if up_left in S and down_left in S and up_right in M and down_right in M:
                 result += 1
-            if [dx, dy] in S and [dX, dy] in M and [dx, dY] in S and [dX, dY] in M:
+            if up_left in S and down_left in M and up_right in S and down_right in M:
                 result += 1
-            if [dx, dy] in M and [dX, dy] in S and [dx, dY] in M and [dX, dY] in S:
+            if up_left in M and down_left in S and up_right in M and down_right in S:
                 result += 1
         return result
 
