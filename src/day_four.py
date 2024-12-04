@@ -38,11 +38,11 @@ class DayFour:
             down_right = [x + 1, y + 1]
             if up_left in M and down_left in M and up_right in S and down_right in S:
                 result += 1
-            if up_left in S and down_left in S and up_right in M and down_right in M:
+            if up_right in M and down_right in M and up_left in S and down_left in S:
                 result += 1
-            if up_left in S and down_left in M and up_right in S and down_right in M:
+            if down_right in M and down_left in M and up_left in S and up_right in S:
                 result += 1
-            if up_left in M and down_left in S and up_right in M and down_right in S:
+            if up_left in M and up_right in M and down_right in S and down_left in S:
                 result += 1
         return result
 
