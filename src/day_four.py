@@ -6,35 +6,35 @@ class DayFour:
     def part_one(self) -> int:
         result = 0
 
-        X = self._search_letter("X")
-        M = self._search_letter("M")
-        A = self._search_letter("A")
-        S = self._search_letter("S")
+        X = self._search_letter_positions("X")
+        M = self._search_letter_positions("M")
+        A = self._search_letter_positions("A")
+        S = self._search_letter_positions("S")
 
         for x in X:
             dx, dy = x
-            posx = [-1, 0, 1]
-            posy = [-1, 0, 1]
-            for xx in posx:
-                for yy in posy:
-                    if [dx + xx, dy + yy] in M:
-                        if [dx + (xx) * 2, dy + (yy) * 2] in A:
-                            if [dx + (xx) * 3, dy + (yy) * 3] in S:
+            posX = [-1, 0, 1]
+            posX = [-1, 0, 1]
+            for dX in posX:
+                for dY in posX:
+                    if [dx + dX, dy + dY] in M:
+                        if [dx + (dX) * 2, dy + (dY) * 2] in A:
+                            if [dx + (dX) * 3, dy + (dY) * 3] in S:
                                 result += 1
         return result
 
     def part_two(self) -> int:
         result = 0
 
-        M = self._search_letter("M")
-        A = self._search_letter("A")
-        S = self._search_letter("S")
+        M = self._search_letter_positions("M")
+        A = self._search_letter_positions("A")
+        S = self._search_letter_positions("S")
 
         for a in A:
             x, y = a
             dx = x - 1
-            dy = y - 1
             dX = x + 1
+            dy = y - 1
             dY = y + 1
             if [dx, dy] in M and [dX, dy] in M and [dx, dY] in S and [dX, dY] in S:
                 result += 1
@@ -46,10 +46,10 @@ class DayFour:
                 result += 1
         return result
 
-    def _search_letter(self, letter: str) -> list[list[int]]:
-        points = []
-        for i, line in enumerate(self.puzzle):
-            for j, char in enumerate(line):
+    def _search_letter_positions(self, letter: str) -> list[list[int]]:
+        positions = []
+        for idx, line in enumerate(self.puzzle):
+            for idy, char in enumerate(line):
                 if char == letter:
-                    points.append([i, j])
-        return points
+                    positions.append([idx, idy])
+        return positions
