@@ -6,21 +6,21 @@ from src.day_five import DayFive
 
 class TestDayFive:
     @staticmethod
-    def example() -> list[str]:
-        return open("inputs/05.example").read().strip().split("\n")
+    def example() -> str:
+        return open("inputs/05.example").read().strip()
 
     @staticmethod
-    def real_input() -> list[str]:
-        return open("inputs/05.in").read().strip().split("\n")
+    def real_input() -> str:
+        return open("inputs/05.in").read().strip()
 
     @pytest.mark.parametrize(
         "input, solution",
         [
-            (example(), 0),
-            (real_input(), 0),
+            (example(), 143),
+            (real_input(), 4957),
         ],
     )
-    def test_part_one(self, input: list[str], solution: int) -> None:
+    def test_part_one(self, input: str, solution: int) -> None:
         day_one = DayFive(input)
 
         result = day_one.part_one()
@@ -30,11 +30,11 @@ class TestDayFive:
     @pytest.mark.parametrize(
         "input, solution",
         [
-            (example(), 0),
-            (real_input(), 0),
+            (example(), 123),
+            (real_input(), 6938),
         ],
     )
-    def test_part_two(self, input: list[str], solution: int) -> None:
+    def test_part_two(self, input: str, solution: int) -> None:
         day_one = DayFive(input)
 
         result = day_one.part_two()
