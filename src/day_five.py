@@ -28,10 +28,10 @@ class DayFive:
             for update in invalid_updates:
                 valid = False
                 while not valid:
-                    for n in update:
-                        numbers_in_rule = [x for x in self.rules[n] if x in update]
+                    for number in update:
+                        numbers_in_rule = [x for x in self.rules[number] if x in update]
                         for x in numbers_in_rule:
-                            idx = update.index(n)
+                            idx = update.index(number)
                             idy = update.index(x)
                             if idx > idy:
                                 update[idx], update[idy] = update[idy], update[idx]
@@ -44,17 +44,17 @@ class DayFive:
         return result
 
     def _parse_input(self, input: str) -> tuple[dict[int, list[int]], list[list[int]]]:
-        rules = defaultdict(list)
-        updates = []
         parts = input.split("\n\n")
+        _rules = parts[0].split("\n")
+        _updates = parts[1].split("\n")
 
-        pairs = parts[0].split("\n")
-        for pair in pairs:
+        rules = defaultdict(list)
+        for pair in _rules:
             before, after = list(map(int, pair.strip().split("|")))
             rules[before].append(after)
 
-        pairs = parts[1].split("\n")
-        for pair in pairs:
+        updates = []
+        for pair in _updates:
             numbers = list(map(int, pair.strip().split(",")))
             updates.append(numbers)
         return rules, updates
@@ -64,8 +64,8 @@ class DayFive:
         valid = True
         for number in update:
             next = self.rules[number]
-            for n in next:
-                if n in update and n in seen:
+            for _number in next:
+                if _number in update and _number in seen:
                     valid = False
             seen.add(number)
         return valid
