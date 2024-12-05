@@ -6,42 +6,17 @@ class DayFive:
         self.rules, self.updates = self._parse_input(input)
 
     def part_one(self) -> int:
-        valid_rules = []
-        for update in self.updates:
-            valid = self._is_valid(update)
-            if valid:
-                valid_rules.append(update)
-
-        result = 0
-        for rule in valid_rules:
-            middle = (len(rule) - 1) / 2
-            result += rule[int(middle)]
-        return result
+        valid_updates = [update for update in self.updates if self._is_valid(update)]
+        return self._calculate(valid_updates)
 
     def part_two(self) -> int:
-        invalid_updates = []
-        for update in self.updates:
-            valid = self._is_valid(update)
-            if not valid:
-                invalid_updates.append(update)
-
-            for update in invalid_updates:
-                valid = False
-                while not valid:
-                    for number in update:
-                        numbers_in_rule = [x for x in self.rules[number] if x in update]
-                        for x in numbers_in_rule:
-                            idx = update.index(number)
-                            idy = update.index(x)
-                            if idx > idy:
-                                update[idx], update[idy] = update[idy], update[idx]
-                    valid = self._is_valid(update)
-
-        result = 0
+        invalid_updates = [
+            update for update in self.updates if not self._is_valid(update)
+        ]
         for update in invalid_updates:
-            middle = (len(update) - 1) / 2
-            result += update[int(middle)]
-        return result
+            while not self._is_valid(update):
+                update = self._fix_update(update)
+        return self._calculate(invalid_updates)
 
     def _parse_input(self, input: str) -> tuple[dict[int, list[int]], list[list[int]]]:
         parts = input.split("\n\n")
@@ -69,3 +44,20 @@ class DayFive:
                     valid = False
             seen.add(number)
         return valid
+
+    def _fix_update(self, update: list[int]) -> list[int]:
+        for number in update:
+            numbers_in_rule = [x for x in self.rules[number] if x in update]
+            for x in numbers_in_rule:
+                idx = update.index(number)
+                idy = update.index(x)
+                if idx > idy:
+                    update[idx], update[idy] = update[idy], update[idx]
+        return update
+
+    def _calculate(self, updates: list[list[int]]) -> int:
+        result = 0
+        for update in updates:
+            middle = (len(update) - 1) / 2
+            result += update[int(middle)]
+        return result
