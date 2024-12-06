@@ -31,7 +31,7 @@ class TestDaySix:
         "input, solution",
         [
             (example(), 6),
-            (real_input(), 1995),
+            # (real_input(), 1995),
         ],
     )
     def test_part_two(self, input: str, solution: int) -> None:

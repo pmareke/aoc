@@ -63,6 +63,7 @@ class DaySix:
             for idy, position in enumerate(line):
                 if position == "^":
                     return [idx, idy]
+        raise Exception("No starting point found")
 
     def _change_direction(self, direction: int) -> tuple[int, int]:
         return [(-1, 0), (0, 1), (1, 0), (0, -1)][direction]
