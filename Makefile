@@ -43,5 +43,9 @@ test: ## Run all the tests
 watch: ## Run all the tests in watch mode
 	 PYTHONPATH=. poetry run ptw --runner "pytest -n auto tests -ra"
 
+.PHONY: generate
+generate: ## Scaffold new exercise, ex: make generate day=02
+		scripts/generate.sh $(day)
+
 .PHONY: pre-commit
 pre-commit: check-format check-typing test
