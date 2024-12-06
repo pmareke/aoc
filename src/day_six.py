@@ -1,77 +1,67 @@
 class DaySix:
     def __init__(self, input: str) -> None:
-        self.starting_point, self._point, self.maze = self._parse_input(input)
+        self.input = input
+        self.maze = input.split("\n")
 
     def part_one(self) -> int:
-        point = self._point
-        direction = [-1, 0]
-        next_position = self.starting_point
+        direction = 0
+        next_position = self._find_start()
         seen = set()
         while True:
             xx, yy = next_position
             seen.add((xx, yy))
 
-            xx, yy = [next_position[0] + direction[0], next_position[1] + direction[1]]
+            x, y = self._change_direction(direction)
+            xx, yy = [next_position[0] + x, next_position[1] + y]
 
             if not (0 <= xx < len(self.maze) and 0 <= yy < len(self.maze[0])):
                 break
 
             if self.maze[xx][yy] == "#":
-                point, direction = self._change_direction(point, direction)
+                direction = (direction + 1) % 4
                 continue
 
             next_position = [xx, yy]
-            seen.add((xx, yy))
 
         return len(seen)
 
     def part_two(self) -> int:
         loops = 0
-        for i in range(len(self.maze)):
-            for j in range(len(self.maze[0])):
-                point = self._point
-                x, y = self.starting_point
-                direction = [-1, 0]
+        for idx in range(len(self.maze)):
+            for idy in range(len(self.maze[0])):
+                x, y = self._find_start()
+                direction = 0
                 SEEN = set()
                 while True:
-                    if ((point, x, y)) in SEEN:
+                    if ((direction, x, y)) in SEEN:
                         loops += 1
                         break
 
-                    SEEN.add((point, x, y))
+                    SEEN.add((direction, x, y))
 
-                    xx, yy = [x + direction[0], y + direction[1]]
+                    dx, dy = self._change_direction(direction)
+                    xx, yy = [x + dx, y + dy]
 
                     if not (0 <= xx < len(self.maze) and 0 <= yy < len(self.maze[0])):
                         break
 
-                    if self.maze[xx][yy] == "#" or [xx, yy] == [i, j]:
-                        point, direction = self._change_direction(point, direction)
+                    if self.maze[xx][yy] == "#" or [xx, yy] == [idx, idy]:
+                        direction = (direction + 1) % 4
                         continue
 
                     x, y = xx, yy
         return loops
 
-    def _parse_input(
-        self, input: str
-    ) -> tuple[list[int, int], list[int, int], list[list[str]]]:
-        point = ""
-        starting_point = [0, 0]
-        maze = []
-        for idx, line in enumerate(input.split("\n")):
+    def _find_start(self) -> list[int]:
+        for idx, line in enumerate(self.input.split("\n")):
             for idy, position in enumerate(line):
                 if position not in [".", "#"]:
-                    point = position
-                    starting_point = [idx, idy]
-            maze.append(list(line))
-        return starting_point, point, maze
+                    return [idx, idy]
 
-    def _change_direction(
-        self, point: tuple[int, int], direction: tuple[int, int]
-    ) -> tuple[str, tuple[int, int]]:
-        return {
-            ">": ("v", [1, 0]),
-            "<": ("^", [-1, 0]),
-            "^": (">", [0, 1]),
-            "v": ("<", [0, -1]),
-        }[point]
+    def _change_direction(self, direction: int) -> tuple[int, int]:
+        return [
+            (-1, 0),
+            (0, 1),
+            (1, 0),
+            (0, -1),
+        ][direction]
