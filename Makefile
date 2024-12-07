@@ -37,7 +37,7 @@ format:  ## Format python code
 
 .PHONY: test
 test: ## Run all the tests
-	 PYTHONPATH=. poetry run pytest -n auto tests -ra
+	 PYTHONPATH=. poetry run pytest -n auto tests -rax
 
 .PHONY: watch
 watch: ## Run all the tests in watch mode
