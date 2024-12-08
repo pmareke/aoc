@@ -38,9 +38,8 @@ class DayEight:
                 for idy in range(len(antennas[0]) - (point_y * movement)):
                     if point_x == idx and point_y == idy:
                         continue
-                    if idx >= len(antennas) or idy >= len(antennas[idx]):
+                    if self._is_out_of_bounds(antennas, idx, idy):
                         continue
-
                     if antennas[point_x][point_y] == antennas[idx][idy]:
                         x = (2 * point_x) - idx
                         y = (2 * point_y) - idy
@@ -58,20 +57,20 @@ class DayEight:
                 for idy in range(len(antennas[0]) - (point_y * movement)):
                     if point_x == idx and point_y == idy:
                         continue
-                    if idx >= len(antennas) or idy >= len(antennas[idx]):
-                        continue
+                    if self._is_out_of_bounds(antennas, idx, idy):
+                        break
                     if antennas[point_x][point_y] == antennas[idx][idy]:
-                        delta = 0
+                        multiplier = 0
                         dx = idx - point_x
                         dy = idy - point_y
                         while True:
-                            x = point_x - (dx * delta)
-                            y = point_y - (dy * delta)
+                            x = point_x - (dx * multiplier)
+                            y = point_y - (dy * multiplier)
                             if self._is_out_of_bounds(antennas, x, y):
                                 break
                             antinode = (x, y)
                             antinodes.append(antinode)
-                            delta += 1
+                            multiplier += 1
         return antinodes
 
     @staticmethod
