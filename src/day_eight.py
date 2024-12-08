@@ -38,18 +38,16 @@ class DayEight:
                 for idy in range(len(antennas[0]) - (point_y * movement)):
                     if point_x == idx and point_y == idy:
                         continue
-                    if idx < 0 or idy < 0:
-                        continue
                     if idx >= len(antennas) or idy >= len(antennas[idx]):
                         continue
+
                     if antennas[point_x][point_y] == antennas[idx][idy]:
-                        dx = (2 * point_x) - idx
-                        dy = (2 * point_y) - idy
-                        if dx > len(antennas) - 1 or dy > len(antennas[0]) - 1:
+                        x = (2 * point_x) - idx
+                        y = (2 * point_y) - idy
+                        if self._is_out_of_bounds(antennas, x, y):
                             continue
-                        if dx < 0 or dy < 0:
-                            continue
-                        antinodes.append((dx, dy))
+                        antinode = (x, y)
+                        antinodes.append(antinode)
         return antinodes
 
     def _find_extra_antinodes(self, antennas: list, point_x: int, point_y: int) -> list:
@@ -60,8 +58,6 @@ class DayEight:
                 for idy in range(len(antennas[0]) - (point_y * movement)):
                     if point_x == idx and point_y == idy:
                         continue
-                    if idx < 0 or idy < 0:
-                        continue
                     if idx >= len(antennas) or idy >= len(antennas[idx]):
                         continue
                     if antennas[point_x][point_y] == antennas[idx][idy]:
@@ -69,12 +65,17 @@ class DayEight:
                         dx = idx - point_x
                         dy = idy - point_y
                         while True:
-                            xx = point_x - (dx * delta)
-                            yy = point_y - (dy * delta)
-                            if xx > len(antennas) - 1 or yy > len(antennas[0]) - 1:
+                            x = point_x - (dx * delta)
+                            y = point_y - (dy * delta)
+                            if self._is_out_of_bounds(antennas, x, y):
                                 break
-                            if xx < 0 or yy < 0:
-                                break
-                            antinodes.append((xx, yy))
+                            antinode = (x, y)
+                            antinodes.append(antinode)
                             delta += 1
         return antinodes
+
+    @staticmethod
+    def _is_out_of_bounds(anntenas: list, x: int, y: int) -> bool:
+        if x < 0 or y < 0:
+            return True
+        return x >= len(anntenas) or y >= len(anntenas[x])
