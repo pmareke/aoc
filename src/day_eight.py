@@ -51,6 +51,8 @@ class DayEight:
 
     def _find_extra_antinodes(self, antennas: list, point_x: int, point_y: int) -> list:
         antinodes = []
+        antinode = (point_x, point_y)
+        antinodes.append(antinode)
         movements = [-1, 0, 1]
         for movement in movements:
             for idx in range(len(antennas) - (point_x * movement)):
@@ -60,9 +62,9 @@ class DayEight:
                     if self._is_out_of_bounds(antennas, idx, idy):
                         break
                     if antennas[point_x][point_y] == antennas[idx][idy]:
-                        multiplier = 0
                         dx = idx - point_x
                         dy = idy - point_y
+                        multiplier = 1
                         while True:
                             x = point_x - (dx * multiplier)
                             y = point_y - (dy * multiplier)
