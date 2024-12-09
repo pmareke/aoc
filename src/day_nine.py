@@ -1,64 +1,64 @@
-from collections import deque
-
-
 class DayNine:
     def __init__(self, input: str) -> None:
         self.input = input
 
     def part_one(self) -> int:
-        FILES: deque[tuple] = deque([])
-        SPACES: deque[tuple] = deque([])
-        CHECKSUM: list[int | None] = []
-        position = 0
+        disk = []
         for idx, digit in enumerate(self.input):
+            value = int(digit)
             if idx % 2 == 0:
-                index = idx // 2
-                for idx in range(int(digit)):
-                    CHECKSUM.append(index)
-                    FILES.append((position, 1, index))
-                    position += 1
-                continue
+                fid = idx // 2
+                disk += [fid] * value
+            else:
+                disk += [-1] * value
 
-            SPACES.append((position, int(digit)))
-            for idx in range(int(digit)):
-                CHECKSUM.append(None)
-                position += 1
+        blanks = [idx for idx, digit in enumerate(disk) if digit == -1]
 
-        return self._solve(FILES, SPACES, CHECKSUM)
+        for blank in blanks:
+            while disk[-1] == -1:
+                disk.pop()
+            if len(disk) <= blank:
+                break
+            disk[blank] = disk.pop()
+
+        return sum(i * x for i, x in enumerate(disk))
 
     def part_two(self) -> int:
-        FILES: deque[tuple] = deque([])
-        SPACES: deque[tuple] = deque([])
-        CHECKSUM: list[int | None] = []
+        files = {}
+        blanks = []
         position = 0
+        file_id = 0
         for idx, digit in enumerate(self.input):
+            value = int(digit)
             if idx % 2 == 0:
-                index = idx // 2
-                FILES.append((position, int(digit), index))
-                for idx in range(int(digit)):
-                    CHECKSUM.append(index)
-                    position += 1
+                files[file_id] = (position, value)
+                file_id += 1
+                position += value
                 continue
 
-            SPACES.append((position, int(digit)))
-            for idx in range(int(digit)):
-                CHECKSUM.append(None)
-                position += 1
+            if value != 0:
+                blanks.append((position, value))
+                position += value
+                continue
 
-        return self._solve(FILES, SPACES, CHECKSUM)
+        while file_id > 0:
+            file_id -= 1
+            position, size = files[file_id]
+            for idx, (start, length) in enumerate(blanks):
+                if start >= position:
+                    blanks = blanks[:idx]
+                    break
+                if size <= length:
+                    files[file_id] = (start, size)
+                    if size == length:
+                        blanks.pop(idx)
+                        break
 
-    def _solve(self, files: deque, spaces: deque, checksum: list[int | None]) -> int:
-        for position, size, idx in reversed(files):
-            for idy, (space_position, space_size) in enumerate(spaces):
-                if space_position < position and size <= space_size:
-                    for ids in range(size):
-                        checksum[position + ids] = None
-                        checksum[space_position + ids] = idx
-                    spaces[idy] = (space_position + size, space_size - size)
+                    blanks[idx] = (start + size, length - size)
                     break
 
-        result = 0
-        for ids, digit in enumerate(checksum):
-            if digit is not None:
-                result += ids * digit
-        return result
+        total = 0
+        for idx, (position, size) in files.items():
+            for value in range(position, position + size):
+                total += idx * value
+        return total
