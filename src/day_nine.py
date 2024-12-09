@@ -48,17 +48,17 @@ class DayNine:
         return self._solve(FILES, SPACES, CHECKSUM)
 
     def _solve(self, files: deque, spaces: deque, checksum: list[int | None]) -> int:
-        for position, size, file_id in reversed(files):
-            for space_i, (space_pos, space_size) in enumerate(spaces):
-                if space_pos < position and size <= space_size:
-                    for idx in range(size):
-                        checksum[position + idx] = None
-                        checksum[space_pos + idx] = file_id
-                    spaces[space_i] = (space_pos + size, space_size - size)
+        for position, size, idx in reversed(files):
+            for idy, (space_position, space_size) in enumerate(spaces):
+                if space_position < position and size <= space_size:
+                    for idy in range(size):
+                        checksum[position + idy] = None
+                        checksum[space_position + idy] = idx
+                    spaces[idy] = (space_position + size, space_size - size)
                     break
 
         result = 0
-        for idx, digit in enumerate(checksum):
+        for idy, digit in enumerate(checksum):
             if digit:
-                result += idx * digit
+                result += idy * digit
         return result
