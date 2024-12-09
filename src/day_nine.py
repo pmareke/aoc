@@ -51,14 +51,14 @@ class DayNine:
         for position, size, idx in reversed(files):
             for idy, (space_position, space_size) in enumerate(spaces):
                 if space_position < position and size <= space_size:
-                    for idy in range(size):
-                        checksum[position + idy] = None
-                        checksum[space_position + idy] = idx
+                    for ids in range(size):
+                        checksum[position + ids] = None
+                        checksum[space_position + ids] = idx
                     spaces[idy] = (space_position + size, space_size - size)
                     break
 
         result = 0
-        for idy, digit in enumerate(checksum):
-            if digit:
-                result += idy * digit
+        for ids, digit in enumerate(checksum):
+            if digit is not None:
+                result += ids * digit
         return result

@@ -17,7 +17,7 @@ class TestDayNine:
         "input, solution",
         [
             (example(), 1928),
-            # (real_input(), 6398608069280),
+            (real_input(), 6398608069280),
         ],
     )
     def test_part_one(self, input: str, solution: int) -> None:
@@ -31,7 +31,7 @@ class TestDayNine:
         "input, solution",
         [
             (example(), 2858),
-            # (real_input(), 6427437134372),
+            (real_input(), 6427437134372),
         ],
     )
     def test_part_two(self, input: str, solution: int) -> None:
