@@ -7,8 +7,8 @@ class DayNine:
         for idx, digit in enumerate(self.input):
             value = int(digit)
             if idx % 2 == 0:
-                fid = idx // 2
-                disk += [fid] * value
+                file_id = idx // 2
+                disk += [file_id] * value
             else:
                 disk += [-1] * value
 
