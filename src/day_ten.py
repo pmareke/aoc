@@ -32,22 +32,22 @@ class DayTen:
             for row in range(rows):
                 if self.map[column][row] == 0:
                     start = (column, row)
-                    self._path(start, column, row, trailheads)
+                    self._walk(start, column, row, trailheads)
         return trailheads
 
-    def _path(self, start: tuple, column: int, row: int, trailsheads: dict) -> None:
+    def _walk(self, start: tuple, column: int, row: int, trailsheads: dict) -> None:
         if self.map[column][row] == 9:
             trailsheads[start].append((column, row))
 
         current = self.map[column][row]
         if row > 0 and current + 1 == self.map[column][row - 1]:
-            self._path(start, column, row - 1, trailsheads)
+            self._walk(start, column, row - 1, trailsheads)
 
         if row < len(self.map[0]) - 1 and current + 1 == self.map[column][row + 1]:
-            self._path(start, column, row + 1, trailsheads)
+            self._walk(start, column, row + 1, trailsheads)
 
         if column > 0 and current + 1 == self.map[column - 1][row]:
-            self._path(start, column - 1, row, trailsheads)
+            self._walk(start, column - 1, row, trailsheads)
 
         if column < len(self.map) - 1 and current + 1 == self.map[column + 1][row]:
-            self._path(start, column + 1, row, trailsheads)
+            self._walk(start, column + 1, row, trailsheads)
