@@ -30,19 +30,19 @@ class DayTen:
                     self._walk(start, column, row, trailheads)
         return trailheads
 
-    def _walk(self, start: tuple, column: int, row: int, trailsheads: dict) -> None:
+    def _walk(self, start: tuple, column: int, row: int, trailheads: dict) -> None:
         if self.map[column][row] == 9:
-            trailsheads[start].append((column, row))
+            trailheads[start].append((column, row))
 
         current = self.map[column][row]
         if row > 0 and current + 1 == self.map[column][row - 1]:
-            self._walk(start, column, row - 1, trailsheads)
+            self._walk(start, column, row - 1, trailheads)
 
         if row < len(self.map[0]) - 1 and current + 1 == self.map[column][row + 1]:
-            self._walk(start, column, row + 1, trailsheads)
+            self._walk(start, column, row + 1, trailheads)
 
         if column > 0 and current + 1 == self.map[column - 1][row]:
-            self._walk(start, column - 1, row, trailsheads)
+            self._walk(start, column - 1, row, trailheads)
 
         if column < len(self.map) - 1 and current + 1 == self.map[column + 1][row]:
-            self._walk(start, column + 1, row, trailsheads)
+            self._walk(start, column + 1, row, trailheads)
