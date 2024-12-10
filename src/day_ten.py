@@ -1,4 +1,3 @@
-import re
 from collections import defaultdict
 
 
@@ -9,17 +8,13 @@ class DayTen:
 
     def part_one(self) -> int:
         trailheads = self._calculate_trailheads()
-        result = 0
-        for start, hills in trailheads.items():
-            result += len(set(hills))
-        return result
+        hills_list = [hills for hills in trailheads.values()]
+        return sum([len(set(hills)) for hills in hills_list])
 
     def part_two(self) -> int:
         trailheads = self._calculate_trailheads()
-        result = 0
-        for start, hills in trailheads.items():
-            result += len(hills)
-        return result
+        hills_list = [hills for hills in trailheads.values()]
+        return sum([len(hills) for hills in hills_list])
 
     def _parse_input(self) -> list:
         return [list(map(int, list(row))) for row in self.input.split("\n")]
