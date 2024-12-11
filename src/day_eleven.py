@@ -3,39 +3,28 @@ from functools import cache
 
 class DayEleven:
     def __init__(self, input: str) -> None:
-        self.input = input
+        self.stones = list(map(int, input.split()))
 
     def part_one(self) -> int:
-        stones = list(map(int, self.input.split(" ")))
-        total = 0
-        for stone in stones:
-            total += self._calculate_stones(stone, 25)
-        return total
+        return sum(self._count(stone, 25) for stone in self.stones)
 
     def part_two(self) -> int:
-        stones = list(map(int, self.input.split(" ")))
-        total = 0
-        for stone in stones:
-            total += self._calculate_stones(stone, 75)
-        return total
+        return sum(self._count(stone, 75) for stone in self.stones)
 
     @cache
-    def _calculate_stones(self, stone: int, times: int) -> int:
-        if times == 0:
+    def _count(self, stone: int, steps: int) -> int:
+        if steps == 0:
             return 1
 
         if stone == 0:
-            result = self._calculate_stones(1, times - 1)
-            return result
+            return self._count(1, steps - 1)
 
         if len(str(stone)) % 2 == 0:
             middle = len(str(stone)) // 2
             left = int(str(stone)[:middle])
             right = int(str(stone)[middle:])
-            left_result = self._calculate_stones(int(left), times - 1)
-            right_result = self._calculate_stones(int(right), times - 1)
-            result = left_result + right_result
-            return result
+            left_result = self._count(int(left), steps - 1)
+            right_result = self._count(int(right), steps - 1)
+            return left_result + right_result
 
-        result = self._calculate_stones(stone * 2024, times - 1)
-        return result
+        return self._count(stone * 2024, steps - 1)
