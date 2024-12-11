@@ -19,8 +19,9 @@ class DayEleven:
         if stone == 0:
             return self._count(1, steps - 1)
 
-        if len(str(stone)) % 2 == 0:
-            middle = len(str(stone)) // 2
+        length = len(str(stone))
+        if length % 2 == 0:
+            middle = length // 2
             left = int(str(stone)[:middle])
             right = int(str(stone)[middle:])
             left_result = self._count(int(left), steps - 1)
