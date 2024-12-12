@@ -16,8 +16,8 @@ class TestDayTwelve:
     @pytest.mark.parametrize(
         "input, solution",
         [
-            (example(), 0),
-            (real_input(), 0),
+            (example(), 1930),
+            (real_input(), 1457298),
         ],
     )
     def test_part_one(self, input: str, solution: int) -> None:
@@ -30,8 +30,8 @@ class TestDayTwelve:
     @pytest.mark.parametrize(
         "input, solution",
         [
-            (example(), 0),
-            (real_input(), 0),
+            (example(), 1206),
+            (real_input(), 921636),
         ],
     )
     def test_part_two(self, input: str, solution: int) -> None:
