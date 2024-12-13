@@ -1,9 +1,6 @@
 import re
 from dataclasses import dataclass
 
-from sympy import Eq, solve, symbols
-from sympy.core.numbers import Integer
-
 
 @dataclass
 class Point:
@@ -59,15 +56,10 @@ class DayThirteen:
         return Game(button_a, button_b, prize)
 
     def _solve(self, A: Point, B: Point, prize: Point, factor: int) -> int:
-        x, y = symbols("x y")
         x_prize = prize.X + factor
-        eq1 = Eq(A.X * x + B.X * y, x_prize)
         y_prize = prize.Y + factor
-        eq2 = Eq(A.Y * x + B.Y * y, y_prize)
-
-        solution = solve((eq1, eq2), (x, y))
-        if isinstance(solution[x], Integer) and isinstance(solution[y], Integer):
-            x = solution[x]
-            y = solution[y]
-            return int(x * 3 + y)
+        a_times = (x_prize * B.Y - y_prize * B.X) / (A.X * B.Y - A.Y * B.X)
+        b_times = (x_prize - A.X * a_times) / B.X
+        if a_times.is_integer() and b_times.is_integer():
+            return int(a_times * 3 + b_times)
         return 0
