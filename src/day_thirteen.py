@@ -6,16 +6,16 @@ from sympy.core.numbers import Integer
 
 
 @dataclass
-class Coordinates:
+class Point:
     X: int
     Y: int
 
 
 @dataclass
 class Game:
-    A: Coordinates
-    B: Coordinates
-    prize: Coordinates
+    A: Point
+    B: Point
+    prize: Point
 
 
 class DayThirteen:
@@ -28,7 +28,7 @@ class DayThirteen:
             button_a = game.A
             button_b = game.B
             prize = game.prize
-            total += self._solve(button_a, button_b, prize)
+            total += self._solve(button_a, button_b, prize, factor=0)
         return total
 
     def part_two(self) -> int:
@@ -37,7 +37,7 @@ class DayThirteen:
             button_a = game.A
             button_b = game.B
             prize = game.prize
-            total += self._solve2(button_a, button_b, prize)
+            total += self._solve(button_a, button_b, prize, factor=10000000000000)
         return total
 
     def _parse_input(self, input: str) -> list[Game]:
@@ -47,45 +47,20 @@ class DayThirteen:
             parts = block.split("\n")
             regex = r"\d+"
             x, y = map(int, re.findall(regex, parts[0]))
-            button_a = Coordinates(x, y)
+            button_a = Point(x, y)
             x, y = map(int, re.findall(regex, parts[1]))
-            button_b = Coordinates(x, y)
+            button_b = Point(x, y)
             x, y = map(int, re.findall(regex, parts[2]))
-            prize = Coordinates(x, y)
+            prize = Point(x, y)
             game = Game(button_a, button_b, prize)
             games.append(game)
         return games
 
-    def _solve(
-        self,
-        A: Coordinates,
-        B: Coordinates,
-        prize: Coordinates,
-    ) -> int:
+    def _solve(self, A: Point, B: Point, prize: Point, factor: int) -> int:
         x, y = symbols("x y")
-
-        eq1 = Eq(A.X * x + B.X * y, prize.X)
-        eq2 = Eq(A.Y * x + B.Y * y, prize.Y)
-
-        solution = solve((eq1, eq2), (x, y))
-
-        if isinstance(solution[x], Integer) and isinstance(solution[y], Integer):
-            x = solution[x]
-            y = solution[y]
-            return int(x * 3 + y)
-        return 0
-
-    def _solve2(
-        self,
-        A: Coordinates,
-        B: Coordinates,
-        prize: Coordinates,
-    ) -> int:
-        x, y = symbols("x y")
-
-        x_prize = prize.X + 10000000000000
+        x_prize = prize.X + factor
         eq1 = Eq(A.X * x + B.X * y, x_prize)
-        y_prize = prize.Y + 10000000000000
+        y_prize = prize.Y + factor
         eq2 = Eq(A.Y * x + B.Y * y, y_prize)
 
         solution = solve((eq1, eq2), (x, y))
