@@ -45,16 +45,18 @@ class DayThirteen:
         blocks = input.split("\n\n")
         for block in blocks:
             parts = block.split("\n")
-            regex = r"\d+"
-            x, y = map(int, re.findall(regex, parts[0]))
-            button_a = Point(x, y)
-            x, y = map(int, re.findall(regex, parts[1]))
-            button_b = Point(x, y)
-            x, y = map(int, re.findall(regex, parts[2]))
-            prize = Point(x, y)
-            game = Game(button_a, button_b, prize)
-            games.append(game)
+            games.append(self._create_game(parts))
         return games
+
+    def _create_game(self, parts: list) -> Game:
+        regex = r"\d+"
+        x, y = map(int, re.findall(regex, parts[0]))
+        button_a = Point(x, y)
+        x, y = map(int, re.findall(regex, parts[1]))
+        button_b = Point(x, y)
+        x, y = map(int, re.findall(regex, parts[2]))
+        prize = Point(x, y)
+        return Game(button_a, button_b, prize)
 
     def _solve(self, A: Point, B: Point, prize: Point, factor: int) -> int:
         x, y = symbols("x y")
