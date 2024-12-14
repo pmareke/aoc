@@ -10,7 +10,7 @@ class DayFourteen:
         self.input = input
 
     def part_one(self) -> int:
-        points = self._move_points()
+        points = self._move_points(100)
         quadrants = self._build_quadrants(points)
         total = 1
         for quadrant in quadrants.values():
@@ -18,17 +18,28 @@ class DayFourteen:
         return total
 
     def part_two(self) -> int:
-        return 8050  # TODO: Implement this solution
+        min_total = float("inf")
+        best_iteration = 0
+        for second in range(self.WIDE * self.TALL):
+            total = 1
+            points = self._move_points(second)
+            quadrants = self._build_quadrants(points)
+            for quadrant in quadrants.values():
+                total *= sum(value[1] for value in quadrant)
+            if total < min_total:
+                min_total = total
+                best_iteration = second
+        return best_iteration
 
-    def _move_points(self) -> dict[tuple, int]:
+    def _move_points(self, second: int) -> dict[tuple, int]:
         points: dict[tuple, int] = defaultdict(int)
         regex = re.compile(r"-?\d+")
         for line in self.input.split("\n"):
             x, y, dx, dy = [int(x) for x in regex.findall(line)]
             dx = dx if dx > 0 else self.WIDE + dx
             dy = dy if dy > 0 else self.TALL + dy
-            final_x = (x + (dx * 100)) % self.WIDE
-            final_y = (y + (dy * 100)) % self.TALL
+            final_x = (x + (dx * second)) % self.WIDE
+            final_y = (y + (dy * second)) % self.TALL
             point = (final_x, final_y)
             points[point] += 1
         return points

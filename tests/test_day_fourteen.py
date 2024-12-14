@@ -6,6 +6,10 @@ from src.day_fourteen import DayFourteen
 
 class TestDayFourteen:
     @staticmethod
+    def example() -> str:
+        return open("inputs/14.example").read().strip()
+
+    @staticmethod
     def real_input() -> str:
         return open("inputs/14.in").read().strip()
 
