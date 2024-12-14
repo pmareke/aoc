@@ -1,10 +1,10 @@
 import pytest
 from expects import equal, expect
 
-from src.day_fiveteen import DayFiveteen
+from src.day_fifteen import DayFifteen
 
 
-class TestDayFiveteen:
+class TestDayFifteen:
     @staticmethod
     def example() -> str:
         return open("inputs/15.example").read().strip()
@@ -21,7 +21,7 @@ class TestDayFiveteen:
         ],
     )
     def test_part_one(self, input: str, solution: int) -> None:
-        day_one = DayFiveteen(input)
+        day_one = DayFifteen(input)
 
         result = day_one.part_one()
 
@@ -35,7 +35,7 @@ class TestDayFiveteen:
         ],
     )
     def test_part_two(self, input: str, solution: int) -> None:
-        day_one = DayFiveteen(input)
+        day_one = DayFifteen(input)
 
         result = day_one.part_two()
 

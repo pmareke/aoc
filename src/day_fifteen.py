@@ -1,4 +1,4 @@
-class DayFiveteen:
+class DayFifteen:
     def __init__(self, input: str) -> None:
         self.input = input
 
