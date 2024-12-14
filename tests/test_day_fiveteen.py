@@ -1,22 +1,27 @@
 import pytest
 from expects import equal, expect
 
-from src.day_fourteen import DayFourteen
+from src.day_fiveteen import DayFiveteen
 
 
-class TestDayFourteen:
+class TestDayFiveteen:
+    @staticmethod
+    def example() -> str:
+        return open("inputs/15.example").read().strip()
+
     @staticmethod
     def real_input() -> str:
-        return open("inputs/14.in").read().strip()
+        return open("inputs/15.in").read().strip()
 
     @pytest.mark.parametrize(
         "input, solution",
         [
-            (real_input(), 215987200),
+            (example(), 0),
+            (real_input(), 0),
         ],
     )
     def test_part_one(self, input: str, solution: int) -> None:
-        day_one = DayFourteen(input)
+        day_one = DayFiveteen(input)
 
         result = day_one.part_one()
 
@@ -25,11 +30,12 @@ class TestDayFourteen:
     @pytest.mark.parametrize(
         "input, solution",
         [
-            (real_input(), 8050),
+            (example(), 0),
+            (real_input(), 0),
         ],
     )
     def test_part_two(self, input: str, solution: int) -> None:
-        day_one = DayFourteen(input)
+        day_one = DayFiveteen(input)
 
         result = day_one.part_two()
 
