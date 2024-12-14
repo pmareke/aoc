@@ -6,18 +6,13 @@ from src.day_fourteen import DayFourteen
 
 class TestDayFourteen:
     @staticmethod
-    def example() -> str:
-        return open("inputs/14.example").read().strip()
-
-    @staticmethod
     def real_input() -> str:
         return open("inputs/14.in").read().strip()
 
     @pytest.mark.parametrize(
         "input, solution",
         [
-            (example(), 0),
-            (real_input(), 0),
+            (real_input(), 215987200),
         ],
     )
     def test_part_one(self, input: str, solution: int) -> None:
@@ -30,8 +25,7 @@ class TestDayFourteen:
     @pytest.mark.parametrize(
         "input, solution",
         [
-            (example(), 0),
-            (real_input(), 0),
+            (real_input(), 8050),
         ],
     )
     def test_part_two(self, input: str, solution: int) -> None:
