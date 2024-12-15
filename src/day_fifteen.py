@@ -3,8 +3,8 @@ class DayFifteen:
         self.input = input
 
     def part_one(self) -> int:
-        expansion = {"#": "#", "O": "O", ".": ".", "@": "@"}
-        map, starting_point, movements = self._parse_input(self.input, expansion)
+        no_expansion = {"#": "#", "O": "O", ".": ".", "@": "@"}
+        map, starting_point, movements = self._parse_input(self.input, no_expansion)
         self._move_boxes(map, starting_point, movements)
         return self._calculate_score(map, "O")
 
@@ -13,6 +13,21 @@ class DayFifteen:
         map, starting_point, movements = self._parse_input(self.input, expansion)
         self._move_wider_boxes(map, starting_point, movements)
         return self._calculate_score(map, "[")
+
+    def _parse_input(self, input: str, expansion: dict) -> tuple:
+        map, movements = input.strip().split("\n\n")
+        maze = []
+        for column in map.split("\n"):
+            line = []
+            for row in column:
+                line.extend(list("".join(expansion[row])))
+            maze.append(line)
+        starting_point = None
+        for idx, _column in enumerate(maze):
+            for idy, _row in enumerate(_column):
+                if _row == "@":
+                    starting_point = (idx, idy)
+        return maze, starting_point, "".join(movements.split("\n"))
 
     def _move_boxes(self, map: list, starting_point: tuple, movements: str) -> None:
         x, y = starting_point
@@ -43,21 +58,6 @@ class DayFifteen:
             x += dx
             y += dy
 
-    def _parse_input(self, input: str, expansion: dict) -> tuple:
-        map, movements = input.strip().split("\n\n")
-        maze = []
-        for column in map.split("\n"):
-            line = []
-            for row in column:
-                line.extend(list("".join(expansion[row])))
-            maze.append(line)
-        starting_point = None
-        for idx, _column in enumerate(maze):
-            for idy, _row in enumerate(_column):
-                if _row == "@":
-                    starting_point = (idx, idy)
-        return maze, starting_point, "".join(movements.split("\n"))
-
     def _move_wider_boxes(
         self, map: list, starting_point: tuple, movements: str
     ) -> None:
@@ -68,28 +68,28 @@ class DayFifteen:
             targets = [(x, y)]
             valid = True
             for cr, cc in targets:
-                nr = cr + dx
-                nc = cc + dy
-                if (nr, nc) in targets:
+                next_x = cr + dx
+                next_y = cc + dy
+                if (next_x, next_y) in targets:
                     continue
-                point = map[nr][nc]
+                point = map[next_x][next_y]
                 if point == "#":
                     valid = False
                 if point == "[":
-                    targets.append((nr, nc))
-                    targets.append((nr, nc + 1))
+                    targets.append((next_x, next_y))
+                    targets.append((next_x, next_y + 1))
                 if point == "]":
-                    targets.append((nr, nc))
-                    targets.append((nr, nc - 1))
+                    targets.append((next_x, next_y))
+                    targets.append((next_x, next_y - 1))
             if not valid:
                 continue
-            copy = [list(row) for row in map]
+            map_copy = [list(row) for row in map]
             map[x][y] = "."
             map[x + dx][y + dy] = "@"
-            for br, bc in targets[1:]:
-                map[br][bc] = "."
-            for br, bc in targets[1:]:
-                map[br + dx][bc + dy] = copy[br][bc]
+            for previous_x, previous_y in targets[1:]:
+                map[previous_x][previous_y] = "."
+            for previous_x, previous_y in targets[1:]:
+                map[previous_x + dx][previous_y + dy] = map_copy[previous_x][previous_y]
             x += dx
             y += dy
 
