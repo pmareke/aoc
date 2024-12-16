@@ -29,11 +29,11 @@ class DaySixteen:
         return map, start
 
     def _walk(self, map: list, start: tuple) -> int:
-        pq = [(0, start[0], start[1], 0, 1)]
+        priority_queue = [(0, start[0], start[1], 0, 1)]
         seen = {(start[0], start[1], 0, 1)}
         min_cost = 0
-        while pq:
-            cost, x, y, dx, dy = heapq.heappop(pq)
+        while priority_queue:
+            cost, x, y, dx, dy = heapq.heappop(priority_queue)
             seen.add((x, y, dx, dy))
             if map[x][y] == "E":
                 min_cost = cost
@@ -47,44 +47,43 @@ class DaySixteen:
                     continue
                 if (xx, yy, dxx, dyy) in seen:
                     continue
-                heapq.heappush(pq, (new_cost, xx, yy, dxx, dyy))
+                heapq.heappush(priority_queue, (new_cost, xx, yy, dxx, dyy))
         return min_cost
 
     def _walk2(self, map: list, start: tuple) -> set:
-        pq = [(0, start[0], start[1], 0, 1)]
+        priority_queue = [(0, start[0], start[1], 0, 1)]
         lowest_cost = {(start[0], start[1], 0, 1): 0}
         backtrack: dict[tuple, set] = {}
         best_cost = float("inf")
         end_states = set()
 
-        while pq:
-            cost, r, c, dr, dc = heapq.heappop(pq)
-            if cost > lowest_cost.get((r, c, dr, dc), float("inf")):
+        while priority_queue:
+            cost, x, y, dx, dy = heapq.heappop(priority_queue)
+            if cost > lowest_cost.get((x, y, dx, dy), float("inf")):
                 continue
-            if map[r][c] == "E":
+            if map[x][y] == "E":
                 if cost > best_cost:
                     break
                 best_cost = cost
-                end_states.add((r, c, dr, dc))
-            for new_cost, nr, nc, ndr, ndc in [
-                (cost + 1, r + dr, c + dc, dr, dc),
-                (cost + 1000, r, c, dc, -dr),
-                (cost + 1000, r, c, -dc, dr),
+                end_states.add((x, y, dx, dy))
+            for new_cost, xx, yy, dxx, dyy in [
+                (cost + 1, x + dx, y + dy, dx, dy),
+                (cost + 1000, x, y, dy, -dx),
+                (cost + 1000, x, y, -dy, dx),
             ]:
-                if map[nr][nc] == "#":
+                if map[xx][yy] == "#":
                     continue
-                lowest = lowest_cost.get((nr, nc, ndr, ndc), float("inf"))
+                lowest = lowest_cost.get((xx, yy, dxx, dyy), float("inf"))
                 if new_cost > lowest:
                     continue
                 if new_cost < lowest:
-                    backtrack[(nr, nc, ndr, ndc)] = set()
-                    lowest_cost[(nr, nc, ndr, ndc)] = new_cost
-                backtrack[(nr, nc, ndr, ndc)].add((r, c, dr, dc))
-                heapq.heappush(pq, (new_cost, nr, nc, ndr, ndc))
+                    backtrack[(xx, yy, dxx, dyy)] = set()
+                    lowest_cost[(xx, yy, dxx, dyy)] = new_cost
+                backtrack[(xx, yy, dxx, dyy)].add((x, y, dx, dy))
+                heapq.heappush(priority_queue, (new_cost, xx, yy, dxx, dyy))
 
         states = deque(end_states)
         seen = set(end_states)
-
         while states:
             key = states.popleft()
             for last in backtrack.get(key, []):
