@@ -10,7 +10,6 @@ class Computer:
     instructions: list[int]
     pointer: int = 0
     output: list[int] = field(default_factory=list)
-    output2: int | None = None
 
     def run(self) -> str:
         while True:
@@ -30,10 +29,11 @@ class Computer:
             self.A = register << 3 | b
             self.B = 0
             self.C = 0
-            self.output2 = None
+            output = None
             for pointer in range(0, len(self.instructions) - 2, 2):
                 ins = self.instructions[pointer]
                 operand = self.instructions[pointer + 1]
+
                 if ins == 1:
                     self.B ^= operand
                 if ins == 2:
@@ -41,17 +41,17 @@ class Computer:
                 if ins == 4:
                     self.B ^= self.C
                 if ins == 5:
-                    self.output2 = self._combo(operand) % 8
+                    output = self._combo(operand) % 8
                 if ins == 6:
                     self.B = self.A >> self._combo(operand)
                 if ins == 7:
                     self.C = self.A >> self._combo(operand)
 
-                if self.output2 == target[-1]:
-                    sub = self.find(target[:-1], self.A)
-                    if sub is None:
+                if output == target[-1]:
+                    _register = self.find(target[:-1], self.A)
+                    if _register is None:
                         continue
-                    return sub
+                    return _register
 
         return None
 
