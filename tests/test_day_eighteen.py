@@ -14,42 +14,40 @@ class TestDayEightenn:
         return open("inputs/18.in").read().strip()
 
     @pytest.mark.parametrize(
-        "input, rows, cols, times, solution",
+        "input, size, times, solution",
         [
-            (example(), 7, 7, 12, 22),
-            (real_input(), 71, 71, 1024, 288),
+            (example(), 7, 12, 22),
+            (real_input(), 71, 1024, 288),
         ],
     )
     def test_part_one(
         self,
         input: str,
-        rows: int,
-        cols: int,
+        size: int,
         times: int,
         solution: int,
     ) -> None:
         day_one = DayEighteen(input)
 
-        result = day_one.part_one(rows, cols, times)
+        result = day_one.part_one(size, times)
 
         expect(result).to(equal(solution))
 
     @pytest.mark.parametrize(
-        "input, rows, cols, solution",
+        "input, size, solution",
         [
-            (example(), 7, 7, "6,1"),
-            (real_input(), 71, 71, "52,5"),
+            (example(), 7, "6,1"),
+            (real_input(), 71, "52,5"),
         ],
     )
     def test_part_two(
         self,
         input: str,
-        rows: int,
-        cols: int,
+        size: int,
         solution: str,
     ) -> None:
         day_one = DayEighteen(input)
 
-        result = day_one.part_two(rows, cols)
+        result = day_one.part_two(size)
 
         expect(result).to(equal(solution))
