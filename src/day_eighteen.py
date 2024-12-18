@@ -24,7 +24,8 @@ class DayEighteen:
             paths = self._walk(map, rows, cols)
             if not paths:
                 break
-        return f"{self.bytes[times - 1][0]},{self.bytes[times - 1][1]}"
+        x, y = self.bytes[times - 1]
+        return f"{x},{y}"
 
     def _parse_bytes(self, input: str) -> list:
         regex = r"\d+"
