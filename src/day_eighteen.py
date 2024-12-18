@@ -12,11 +12,12 @@ class DayEighteen:
             x, y = self.bytes[i]
             map[y][x] = "#"
         paths = self._walk(map, size)
-        return min(len(path) for path in paths)
+        min_steps: int = min(paths)
+        return min_steps
 
     def part_two(self, size: int) -> str:
-        times = 0
         map = [["." for _ in range(size)] for _ in range(size)]
+        times = 0
         while True:
             x, y = self.bytes[times]
             times += 1
@@ -36,17 +37,17 @@ class DayEighteen:
 
     def _walk(self, maze: list, size: int) -> list:
         paths = []
-        queue: deque = deque([(0, 0, [])])
+        queue: deque = deque([(0, 0, 0)])
         seen = set()
         while queue:
-            y, x, current_path = queue.popleft()
+            y, x, steps = queue.popleft()
             if (y, x) in seen:
                 continue
             seen.add((y, x))
             if (y, x) == (size - 1, size - 1):
-                paths.append(current_path)
+                paths.append(steps)
             for dy, dx in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
                 ny, nx = y + dy, x + dx
                 if 0 <= ny < size and 0 <= nx < size and maze[ny][nx] != "#":
-                    queue.append((ny, nx, current_path + [(ny, nx)]))
+                    queue.append((ny, nx, steps + 1))
         return paths
