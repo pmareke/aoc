@@ -12,20 +12,21 @@ class DayEighteen:
             x, y = self.bytes[i]
             map[y][x] = "#"
         paths = self._walk(map, size)
+        if not paths:
+            return 0
         min_steps: int = min(paths)
         return min_steps
 
     def part_two(self, size: int) -> str:
-        map = [["." for _ in range(size)] for _ in range(size)]
-        times = 0
-        while True:
-            x, y = self.bytes[times]
-            times += 1
-            map[y][x] = "#"
-            paths = self._walk(map, size)
-            if not paths:
-                break
-        x, y = self.bytes[times - 1]
+        low = 0
+        high = len(self.bytes)
+        while low < high:
+            middle = (low + high) // 2
+            if self.part_one(size, middle + 1):
+                low = middle + 1
+            else:
+                high = middle
+        x, y = self.bytes[low]
         return f"{x},{y}"
 
     def _parse_bytes(self, input: str) -> list:
