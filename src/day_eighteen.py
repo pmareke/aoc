@@ -15,16 +15,15 @@ class DayEighteen:
         return min(len(path) for path in paths)
 
     def part_two(self, rows: int, cols: int) -> str:
-        times = 1
+        times = 0
         map = [["." for _ in range(rows)] for _ in range(cols)]
         while True:
-            for t in range(times):
-                x, y = self.bytes[t]
-                map[y][x] = "#"
+            x, y = self.bytes[times]
+            times += 1
+            map[y][x] = "#"
             paths = self._walk(map, rows, cols)
             if not paths:
                 break
-            times += 1
         return f"{self.bytes[times - 1][0]},{self.bytes[times - 1][1]}"
 
     def _parse_bytes(self, input: str) -> list:
