@@ -8,22 +8,20 @@ class DayEighteen:
 
     def part_one(self, rows: int, cols: int, times: int) -> int:
         map = [["." for _ in range(rows)] for _ in range(cols)]
-        maze = map.copy()
         for i in range(times):
             x, y = self.bytes[i]
-            maze[y][x] = "#"
-        paths = self._walk(maze, rows, cols)
+            map[y][x] = "#"
+        paths = self._walk(map, rows, cols)
         return min(len(path) for path in paths)
 
     def part_two(self, rows: int, cols: int) -> str:
         times = 1
         map = [["." for _ in range(rows)] for _ in range(cols)]
         while True:
-            maze = map.copy()
             for t in range(times):
                 x, y = self.bytes[t]
-                maze[y][x] = "#"
-            paths = self._walk(maze, rows, cols)
+                map[y][x] = "#"
+            paths = self._walk(map, rows, cols)
             if not paths:
                 break
             times += 1
