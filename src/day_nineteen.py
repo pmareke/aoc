@@ -1,17 +1,16 @@
+from functools import cache
+
+
 class DayNineteen:
     def __init__(self, input: str) -> None:
         self.patterns, self.designs = self._parse_input(input)
+        self.max_len = max(map(len, self.patterns))
 
     def part_one(self) -> int:
-        total = 0
-        for design in self.designs:
-            ways = self._ways(design, {})
-            if ways > 0:
-                total += 1
-        return total
+        return sum(1 for design in self.designs if self._is_valid(design))
 
     def part_two(self) -> int:
-        return sum(self._ways(design, {}) for design in self.designs)
+        return sum(self._possibilities(design) for design in self.designs)
 
     def _parse_input(self, input: str) -> tuple:
         _patterns, _designs = input.split("\n\n")
@@ -20,18 +19,24 @@ class DayNineteen:
         designs = _designs.split("\n")
         return patterns, designs
 
-    def _ways(self, target: str, seen: dict[str, int]) -> int:
-        if target in seen:
-            return seen[target]
+    @cache
+    def _is_valid(self, design: str) -> bool:
+        if design == "":
+            return True
 
-        ways = 0
+        for idx in range(min(len(design), self.max_len) + 1):
+            if design[:idx] in self.patterns and self._is_valid(design[idx:]):
+                return True
 
-        if not target:
-            ways = 1
+        return False
 
-        for pattern in self.patterns:
-            if target.startswith(pattern):
-                ways += self._ways(target[len(pattern) :], seen)
+    @cache
+    def _possibilities(self, design: str) -> int:
+        if design == "":
+            return 1
 
-        seen[target] = ways
-        return ways
+        count = 0
+        for idx in range(min(len(design), self.max_len) + 1):
+            if design[:idx] in self.patterns:
+                count += self._possibilities(design[idx:])
+        return count
