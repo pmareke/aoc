@@ -14,29 +14,29 @@ class TestDayTwenty:
         return open("inputs/20.in").read().strip()
 
     @pytest.mark.parametrize(
-        "input, solution",
+        "input, nanoseconds, solution",
         [
-            (example(), 0),
-            (real_input(), 0),
+            (example(), 64, 1),
+            (real_input(), 100, 1450),
         ],
     )
-    def test_part_one(self, input: str, solution: int) -> None:
+    def test_part_one(self, input: str, nanoseconds: int, solution: int) -> None:
         day_one = DayTwenty(input)
 
-        result = day_one.part_one()
+        result = day_one.part_one(nanoseconds)
 
         expect(result).to(equal(solution))
 
     @pytest.mark.parametrize(
-        "input, solution",
+        "input, nanoseconds, solution",
         [
-            (example(), 0),
-            (real_input(), 0),
+            (example(), 64, 86),
+            (real_input(), 100, 1015247),
         ],
     )
-    def test_part_two(self, input: str, solution: int) -> None:
+    def test_part_two(self, input: str, nanoseconds: int, solution: int) -> None:
         day_one = DayTwenty(input)
 
-        result = day_one.part_two()
+        result = day_one.part_two(nanoseconds)
 
         expect(result).to(equal(solution))
