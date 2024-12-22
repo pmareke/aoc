@@ -24,7 +24,7 @@ class DayTwentyTwo:
                 buyer.append(next % 10)
             seen = set()
             for idx in range(len(buyer) - 4):
-                a, b, c, d, e = bytes(buyer[idx : idx + 5])
+                a, b, c, d, e = buyer[idx : idx + 5]
                 diffs = (b - a, c - b, d - c, e - d)
                 if diffs in seen:
                     continue
