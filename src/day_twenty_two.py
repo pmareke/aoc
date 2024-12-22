@@ -34,19 +34,7 @@ class DayTwentyTwo:
         return max(total.values())
 
     def _calculate_secret(self, number: int) -> int:
-        x = number * 64
-        x = self._mix(number, x)
-        x = self._prune(x)
-        y = x // 32
-        y = self._mix(x, y)
-        y = self._prune(y)
-        z = y * 2048
-        z = self._mix(y, z)
-        z = self._prune(z)
-        return z
-
-    def _mix(self, x: int, y: int) -> int:
-        return x ^ y
-
-    def _prune(self, x: int) -> int:
-        return x % 16777216
+        x = (number ^ number * 64) % 16777216
+        x = (x ^ x // 32) % 16777216
+        x = (x ^ x * 2048) % 16777216
+        return x
