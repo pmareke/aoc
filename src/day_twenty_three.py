@@ -7,23 +7,22 @@ class DayTwentyThree:
 
     def part_one(self) -> int:
         nodes = self._get_nodes()
-        sets: set[tuple] = set()
+        networks: set[tuple] = set()
         for node in nodes:
-            self._search(nodes, node, {node}, sets)
+            self._search(nodes, node, {node}, networks)
         total = 0
-        for s in filter(lambda x: len(x) == 3, sets):
-            if any(c.startswith("t") for c in s):
+        for network in filter(lambda x: len(x) == 3, networks):
+            if any(node.startswith("t") for node in network):
                 total += 1
         return total
 
     def part_two(self) -> str:
         nodes = self._get_nodes()
-        sets: set[tuple] = set()
+        networks: set[tuple] = set()
         for node in nodes:
-            self._search(nodes, node, {node}, sets)
-
-        max_set = max(sets, key=lambda x: len(x))
-        return ",".join(max_set)
+            self._search(nodes, node, {node}, networks)
+        higher_network = max(networks, key=lambda network: len(network))
+        return ",".join(higher_network)
 
     def _get_nodes(self) -> dict:
         nodes = defaultdict(list)
@@ -34,15 +33,15 @@ class DayTwentyThree:
         return nodes
 
     def _search(
-        self, nodes: dict, node: str, existig_in_network: set, sets: set
+        self, nodes: dict, node: str, existig_in_network: set, networks: set
     ) -> None:
-        key = tuple(sorted(existig_in_network))
-        if key in sets:
+        network = tuple(sorted(existig_in_network))
+        if network in networks:
             return
-        sets.add(key)
+        networks.add(network)
         for _node in nodes[node]:
             if _node in existig_in_network:
                 continue
-            if not all(_node in nodes[query] for query in existig_in_network):
+            if not all(_node in nodes[n] for n in existig_in_network):
                 continue
-            self._search(nodes, _node, {*existig_in_network, _node}, sets)
+            self._search(nodes, _node, {*existig_in_network, _node}, networks)
