@@ -9,20 +9,20 @@ class DayTwentyFour:
     def part_one(self) -> int:
         operations: list[str] = []
         while len(operations) < len(self.cables):
-            for key, operation in self.cables.items():
+            for key, expresion in self.cables.items():
                 if key in operations:
                     continue
-                x, y, op = operation
+                x, y, operation = expresion
                 if x in self.initial_values.keys() and y in self.initial_values.keys():
-                    op1 = self.initial_values[x]
-                    op2 = self.initial_values[y]
-                    self.initial_values[key] = op(op1, op2)
+                    _x = self.initial_values[x]
+                    _y = self.initial_values[y]
+                    self.initial_values[key] = operation(_x, _y)
                     operations.append(key)
-        output = ""
+        output = []
         for key, value in sorted(self.initial_values.items(), reverse=True):
             if key.startswith("z"):
-                output += str(value)
-        return int(output, 2)
+                output.append(str(value))
+        return int("".join(output), 2)
 
     def part_two(self) -> int:
         return 0
