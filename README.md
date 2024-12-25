@@ -1,4 +1,7 @@
-# Advent of Code 2024
+# Advent of Code
+
+- [X] [2024](./src/twenty_four)
+- [ ] [2023](./src/twenty_three)
 
 ## Requirements
 
