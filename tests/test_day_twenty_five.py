@@ -7,17 +7,17 @@ from src.day_twenty_five import DayTwentyFive
 class TestDayTwentyFive:
     @staticmethod
     def example() -> str:
-        return open("inputs/08.example").read().strip()
+        return open("inputs/25.example").read().strip()
 
     @staticmethod
     def real_input() -> str:
-        return open("inputs/08.in").read().strip()
+        return open("inputs/25.in").read().strip()
 
     @pytest.mark.parametrize(
         "input, solution",
         [
-            (example(), 0),
-            (real_input(), 0),
+            (example(), 3),
+            (real_input(), 3344),
         ],
     )
     def test_part_one(self, input: str, solution: int) -> None:
