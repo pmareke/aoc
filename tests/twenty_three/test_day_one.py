@@ -7,11 +7,11 @@ from src.twenty_three.day_one import DayOne
 class TestDayOne:
     @staticmethod
     def example() -> list[str]:
-        return open("inputs/2023/01.example").read().strip().split("\n")
+        return open("inputs/twenty_three/01.example").read().strip().split("\n")
 
     @staticmethod
     def real_input() -> list[str]:
-        return open("inputs/2023/01.in").read().strip().split("\n")
+        return open("inputs/twenty_three/01.in").read().strip().split("\n")
 
     @pytest.mark.parametrize(
         "input, solution",
