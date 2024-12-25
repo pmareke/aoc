@@ -1,0 +1,94 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <Languages>
+        <language minSize="95" name="Python" />
+      </Languages>
+    </inspection_tool>
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="67">
+            <item index="0" class="java.lang.String" itemvalue="ddtrace" />
+            <item index="1" class="java.lang.String" itemvalue="pika" />
+            <item index="2" class="java.lang.String" itemvalue="testcontainers" />
+            <item index="3" class="java.lang.String" itemvalue="expects" />
+            <item index="4" class="java.lang.String" itemvalue="doublex" />
+            <item index="5" class="java.lang.String" itemvalue="httpx" />
+            <item index="6" class="java.lang.String" itemvalue="mypy" />
+            <item index="7" class="java.lang.String" itemvalue="python-dotenv" />
+            <item index="8" class="java.lang.String" itemvalue="h11" />
+            <item index="9" class="java.lang.String" itemvalue="pytest-watch" />
+            <item index="10" class="java.lang.String" itemvalue="pydantic-core" />
+            <item index="11" class="java.lang.String" itemvalue="httptools" />
+            <item index="12" class="java.lang.String" itemvalue="markdown-it-py" />
+            <item index="13" class="java.lang.String" itemvalue="markupsafe" />
+            <item index="14" class="java.lang.String" itemvalue="docopt" />
+            <item index="15" class="java.lang.String" itemvalue="starlette" />
+            <item index="16" class="java.lang.String" itemvalue="certifi" />
+            <item index="17" class="java.lang.String" itemvalue="anyio" />
+            <item index="18" class="java.lang.String" itemvalue="uvicorn" />
+            <item index="19" class="java.lang.String" itemvalue="uvloop" />
+            <item index="20" class="java.lang.String" itemvalue="email-validator" />
+            <item index="21" class="java.lang.String" itemvalue="dnspython" />
+            <item index="22" class="java.lang.String" itemvalue="pydantic" />
+            <item index="23" class="java.lang.String" itemvalue="iniconfig" />
+            <item index="24" class="java.lang.String" itemvalue="typing-extensions" />
+            <item index="25" class="java.lang.String" itemvalue="click" />
+            <item index="26" class="java.lang.String" itemvalue="jinja2" />
+            <item index="27" class="java.lang.String" itemvalue="pyyaml" />
+            <item index="28" class="java.lang.String" itemvalue="execnet" />
+            <item index="29" class="java.lang.String" itemvalue="charset-normalizer" />
+            <item index="30" class="java.lang.String" itemvalue="httpcore" />
+            <item index="31" class="java.lang.String" itemvalue="idna" />
+            <item index="32" class="java.lang.String" itemvalue="shellingham" />
+            <item index="33" class="java.lang.String" itemvalue="pluggy" />
+            <item index="34" class="java.lang.String" itemvalue="mypy-extensions" />
+            <item index="35" class="java.lang.String" itemvalue="pytest-xdist" />
+            <item index="36" class="java.lang.String" itemvalue="requests" />
+            <item index="37" class="java.lang.String" itemvalue="sniffio" />
+            <item index="38" class="java.lang.String" itemvalue="mdurl" />
+            <item index="39" class="java.lang.String" itemvalue="urllib3" />
+            <item index="40" class="java.lang.String" itemvalue="websockets" />
+            <item index="41" class="java.lang.String" itemvalue="pygments" />
+            <item index="42" class="java.lang.String" itemvalue="coverage" />
+            <item index="43" class="java.lang.String" itemvalue="annotated-types" />
+            <item index="44" class="java.lang.String" itemvalue="doublex-expects" />
+            <item index="45" class="java.lang.String" itemvalue="pydantic-settings" />
+            <item index="46" class="java.lang.String" itemvalue="watchfiles" />
+            <item index="47" class="java.lang.String" itemvalue="fastapi-cli" />
+            <item index="48" class="java.lang.String" itemvalue="six" />
+            <item index="49" class="java.lang.String" itemvalue="typer" />
+            <item index="50" class="java.lang.String" itemvalue="pytest" />
+            <item index="51" class="java.lang.String" itemvalue="rich" />
+            <item index="52" class="java.lang.String" itemvalue="packaging" />
+            <item index="53" class="java.lang.String" itemvalue="python-multipart" />
+            <item index="54" class="java.lang.String" itemvalue="fastapi" />
+            <item index="55" class="java.lang.String" itemvalue="watchdog" />
+            <item index="56" class="java.lang.String" itemvalue="pyhamcrest" />
+            <item index="57" class="java.lang.String" itemvalue="colorama" />
+            <item index="58" class="java.lang.String" itemvalue="ruff" />
+            <item index="59" class="java.lang.String" itemvalue="rpds-py" />
+            <item index="60" class="java.lang.String" itemvalue="pydantic-extra-types" />
+            <item index="61" class="java.lang.String" itemvalue="streamlit" />
+            <item index="62" class="java.lang.String" itemvalue="pillow" />
+            <item index="63" class="java.lang.String" itemvalue="narwhals" />
+            <item index="64" class="java.lang.String" itemvalue="numpy" />
+            <item index="65" class="java.lang.String" itemvalue="alembic" />
+            <item index="66" class="java.lang.String" itemvalue="mako" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyStubPackagesAdvertiser" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="pika-stubs==0.1.3" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="SqlNoDataSourceInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="SqlWithoutWhereInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+  </profile>
+</component>

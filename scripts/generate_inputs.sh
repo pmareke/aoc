@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
 
-touch inputs/$1.example
-touch inputs/$1.in
+touch inputs/2024/$1.example
+touch inputs/2024/$1.in

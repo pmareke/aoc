@@ -35,6 +35,10 @@ check-format:  ## Check format python code
 format:  ## Format python code
 	poetry run ruff format
 
+.PHONY: test-year
+test-year: ## Run all the tests for a given year
+	 PYTHONPATH=. poetry run pytest -n auto tests/$(year) -ra
+
 .PHONY: test
 test: ## Run all the tests
 	 PYTHONPATH=. poetry run pytest -n auto tests -ra
