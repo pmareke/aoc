@@ -10,14 +10,18 @@ class TestDayOne:
         return open("inputs/twenty_three/01.example").read().strip().split("\n")
 
     @staticmethod
+    def another_example() -> list[str]:
+        return open("inputs/twenty_three/01.example2").read().strip().split("\n")
+
+    @staticmethod
     def real_input() -> list[str]:
         return open("inputs/twenty_three/01.in").read().strip().split("\n")
 
     @pytest.mark.parametrize(
         "input, solution",
         [
-            (example(), 0),
-            (real_input(), 0),
+            (example(), 142),
+            (real_input(), 54632),
         ],
     )
     def test_part_one(self, input: list[str], solution: int) -> None:
@@ -30,8 +34,8 @@ class TestDayOne:
     @pytest.mark.parametrize(
         "input, solution",
         [
-            (example(), 0),
-            (real_input(), 0),
+            (another_example(), 281),
+            (real_input(), 54019),
         ],
     )
     def test_part_two(self, input: list[str], solution: int) -> None:
