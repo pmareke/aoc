@@ -21,9 +21,9 @@ class TestDayTwenty:
         ],
     )
     def test_part_one(self, input: str, nanoseconds: int, solution: int) -> None:
-        day_one = DayTwenty(input)
+        day = DayTwenty(input)
 
-        result = day_one.part_one(nanoseconds)
+        result = day.part_one(nanoseconds)
 
         expect(result).to(equal(solution))
 
@@ -35,8 +35,8 @@ class TestDayTwenty:
         ],
     )
     def test_part_two(self, input: str, nanoseconds: int, solution: int) -> None:
-        day_one = DayTwenty(input)
+        day = DayTwenty(input)
 
-        result = day_one.part_two(nanoseconds)
+        result = day.part_two(nanoseconds)
 
         expect(result).to(equal(solution))

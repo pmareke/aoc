@@ -16,9 +16,9 @@ class TestDayFourteen:
         ],
     )
     def test_part_one(self, input: str, solution: int) -> None:
-        day_one = DayFourteen(input)
+        day = DayFourteen(input)
 
-        result = day_one.part_one()
+        result = day.part_one()
 
         expect(result).to(equal(solution))
 
@@ -29,8 +29,8 @@ class TestDayFourteen:
         ],
     )
     def test_part_two(self, input: str, solution: int) -> None:
-        day_one = DayFourteen(input)
+        day = DayFourteen(input)
 
-        result = day_one.part_two()
+        result = day.part_two()
 
         expect(result).to(equal(solution))

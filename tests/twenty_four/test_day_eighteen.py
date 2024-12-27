@@ -27,9 +27,9 @@ class TestDayEightenn:
         times: int,
         solution: int,
     ) -> None:
-        day_one = DayEighteen(input)
+        day = DayEighteen(input)
 
-        result = day_one.part_one(size, times)
+        result = day.part_one(size, times)
 
         expect(result).to(equal(solution))
 
@@ -46,8 +46,8 @@ class TestDayEightenn:
         size: int,
         solution: str,
     ) -> None:
-        day_one = DayEighteen(input)
+        day = DayEighteen(input)
 
-        result = day_one.part_two(size)
+        result = day.part_two(size)
 
         expect(result).to(equal(solution))
